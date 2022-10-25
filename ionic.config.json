@@ -1,0 +1,7 @@
+{
+  "name": "inmobitt-cliente",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
