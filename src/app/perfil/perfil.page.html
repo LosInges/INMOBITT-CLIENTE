@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="secondary">CLIENTES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title color="secondary"
+        >CLIENTE * VISTA GENERAL *</ion-card-title
+      >
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title color="secondary">LOCALIZACIÓN </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label posititon="floating"> CORREO </ion-label>
+                  <ion-input placeholder="modelo CRUD?"> </ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">CLAVE </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-card-header>
+                <ion-card-title color="secondary"> DETALLES</ion-card-title>
+              </ion-card-header>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">NOMBRE </ion-label>
+                  <ion-input placeholder="modelo CRUD?"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-label position="floating"> APELLIDO PATERNO</ion-label>
+                <ion-input placeholder="modelo CRUD?"></ion-input>
+              </ion-col>
+              <ion-col>
+                <ion-label posititon="floating"> APELLIDO MATERNO</ion-label>
+                <ion-input placeholder="modelo CRUD?"></ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button color="secondary" fill="solid"> CERRAR </ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-col size="10">
+                <ion-button
+                  class="ion-float-right"
+                  color="secondary"
+                  fill="solid"
+                  (click)="darAltaCliente()"
+                >
+                  CONFIRMAR
+                </ion-button>
+              </ion-col>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-card-content>
+      </ion-card>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
