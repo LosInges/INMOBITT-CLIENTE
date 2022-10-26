@@ -13,4 +13,10 @@ export class ClienteService {
   postCliente(cliente: Cliente): Observable<any> {
     return this.httpClient.post<any>(`${environment.api}/cliente`, cliente);
   }
+
+  getCliente(correo: string):Observable<Cliente>{
+    return this.httpClient.get<Cliente>(`${environment.api}/cliente/${correo}`);
+
+  }
+
 }
