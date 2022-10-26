@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title color="secondary">CLIENTES</ion-title>
+    <ion-title color="secondary">CLIENTE</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,7 +8,7 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title color="secondary"
-        >CLIENTE * VISTA GENERAL *</ion-card-title
+        > VISTA GENERAL </ion-card-title
       >
     </ion-card-header>
 
@@ -23,13 +23,14 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label posititon="floating"> CORREO </ion-label>
-                  <ion-input placeholder="modelo CRUD?"> </ion-input>
+                  <ion-label position="floating"> CORREO </ion-label>
+                  <ion-input [(ngModel)]="cliente.correo"> </ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
                 <ion-item>
                   <ion-label position="floating">CLAVE </ion-label>
+                  <ion-input [(ngModel)]="cliente.password"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -43,16 +44,14 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="floating">NOMBRE </ion-label>
-                  <ion-input placeholder="modelo CRUD?"></ion-input>
+                  <ion-input [(ngModel)]="cliente.nombre"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
-                <ion-label position="floating"> APELLIDO PATERNO</ion-label>
-                <ion-input placeholder="modelo CRUD?"></ion-input>
-              </ion-col>
-              <ion-col>
-                <ion-label posititon="floating"> APELLIDO MATERNO</ion-label>
-                <ion-input placeholder="modelo CRUD?"></ion-input>
+                <ion-item>
+                <ion-label position="floating"> APELLIDOS</ion-label>
+                <ion-input [(ngModel)]="cliente.apellido"></ion-input>
+              </ion-item>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -67,7 +66,6 @@
                   class="ion-float-right"
                   color="secondary"
                   fill="solid"
-                  (click)="darAltaCliente()"
                 >
                   CONFIRMAR
                 </ion-button>
