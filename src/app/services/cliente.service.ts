@@ -10,13 +10,16 @@ import { Cliente } from '../interfaces/cliente';
 export class ClienteService {
   constructor(private httpClient: HttpClient) {}
 
+  //any xq no regresa nada, sólo da lo que regresa el servidor (no tiene estructura)
+  //
   postCliente(cliente: Cliente): Observable<any> {
     return this.httpClient.post<any>(`${environment.api}/cliente`, cliente);
   }
 
+  //retorna cliente
   getCliente(correo: string):Observable<Cliente>{
     return this.httpClient.get<Cliente>(`${environment.api}/cliente/${correo}`);
-
   }
 
+  
 }

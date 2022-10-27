@@ -24,7 +24,7 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="floating"> CORREO </ion-label>
-                  <ion-input [(ngModel)]="cliente.correo"> </ion-input>
+                  <ion-input [(ngModel)]="cliente.correo" disabled> </ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
@@ -66,8 +66,9 @@
                   class="ion-float-right"
                   color="secondary"
                   fill="solid"
+                  (click)="actualizarCliente()"
                 >
-                  CONFIRMAR
+                  ACTUALIZAR
                 </ion-button>
               </ion-col>
             </ion-buttons>

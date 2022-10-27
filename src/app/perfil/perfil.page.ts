@@ -28,4 +28,11 @@ export class PerfilPage implements OnInit {
         .subscribe((cliente) => (this.cliente = cliente));
     });
   }
+
+  actualizarCliente(){
+    this.clienteService.postCliente(this.cliente)?.subscribe((val)=>{
+      console.log(val)
+    })
+  }
+
 }
