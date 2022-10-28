@@ -24,13 +24,19 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="floating"> CORREO </ion-label>
-                  <ion-input [(ngModel)]="cliente.correo"> </ion-input>
+                  <ion-input [(ngModel)]="cliente.correo" disabled> </ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
                 <ion-item>
-                  <ion-label position="floating">CLAVE </ion-label>
+                  <ion-label position="floating">CONTRASEÑA </ion-label>
                   <ion-input [(ngModel)]="cliente.password"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label position="floating">CONFIRMAR CONTRASEÑA </ion-label>
+                  <ion-input [(ngModel)]="confirmPassword"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -58,7 +64,9 @@
 
           <ion-toolbar>
             <ion-buttons slot="start">
-              <ion-button color="secondary" fill="solid"> CERRAR </ion-button>
+              <ion-button color="danger" fill="solid" (click)="eliminarCuenta()">
+                ELIMINAR
+              </ion-button>
             </ion-buttons>
             <ion-buttons slot="end">
               <ion-col size="10">
@@ -66,8 +74,9 @@
                   class="ion-float-right"
                   color="secondary"
                   fill="solid"
+                  (click)="actualizarCliente()"
                 >
-                  CONFIRMAR
+                  ACTUALIZAR
                 </ion-button>
               </ion-col>
             </ion-buttons>
