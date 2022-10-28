@@ -21,6 +21,7 @@ export class ClienteService {
     return this.httpClient.get<Cliente>(`${environment.api}/cliente/${correo}`);
   }
 
+
   //DELETE Cliente
   deleteCliente(correo: string):Observable<any>{
     return this.httpClient.delete<any>(`${environment.api}/cliente`,{body:{correo}});
