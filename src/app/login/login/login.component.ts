@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { LoginService } from 'src/app/services/login.service';
 import { SessionService } from 'src/app/services/session.service';
 
@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private sessionService: SessionService,
-    private modalController: ModalController
-
+    private modalController: ModalController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {}
@@ -31,9 +31,9 @@ export class LoginComponent implements OnInit {
       .login(this.email, this.password)
       .subscribe((respuesta) => {
         console.log(respuesta);
-
-        if (respuesta.session.tipo !== 'cliente') {
+        if (respuesta.session.tipo !== 'cliente')   {
           console.log('NO es Cliente');
+          this.presentAlert()
           return;
         }
         const promesa: Promise<any>[] = [
@@ -41,15 +41,23 @@ export class LoginComponent implements OnInit {
           this.sessionService.set('correo', respuesta.session.email),
         ];
 
-        Promise.all(promesa).then((valor) => {
-          this.sessionService.keys()?.then((val) => {
-            console.log(val,valor);
-          });
+        Promise.all(promesa).then(() => {
+          this.cerrar()
         });
 
       });
   }
 
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'USUARIO INVÁLIDO',
+      subHeader: 'Este no es un correo válido',
+      message: 'Recuerde bien su correo y contraseña',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
   cerrar(){
     this.modalController.dismiss();
   }

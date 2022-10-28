@@ -42,6 +42,8 @@ export class SignupComponent implements OnInit {
     }
     else console.log("no son iguales")
   }
+
+  
   cerrar() {
     this.modalController.dismiss();
   }
