@@ -12,7 +12,7 @@ export class AppComponent {
     { title: 'Iniciar Sesión', url: '/login', icon: 'trash' },
     { title: 'Perfil', url: '/perfil/', icon: 'mail' },
     { title: 'Inmobiliarias', url: '/folder/Outbox', icon: 'paper-plane' },
-    { title: 'Fletes', url: '/folder/Favorites', icon: 'heart' },
+    { title: 'Fletes', url: '/fletes', icon: 'heart' },
     {
       title: 'Cerrar Sesion',
       url: '',

@@ -1,0 +1,39 @@
+<!--
+  ion-input tipo texto para mostrar tranporte
+  ion-select para mostrar cargadores
+  con botón agregar
+  en un sliding || con opción de eliminar
+    lista de cargadores motrando el nombredel cargador
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close-circle" color="secondary"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title color="secondary"> INFORMACIÓN DE PAQUETES </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="ion-margin-top ion-margin-bottom">
+    <ion-col>
+      <ion-item>
+        <!---MOSTRAR TRANSPORTES-->
+        <ion-label position="floating">TRANSPORTE</ion-label>
+        <ion-input [(ngModel)]="transporteFlete.transporte" disabled>
+        </ion-input>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-list>
+        <ion-item *ngFor="let cargador of cargadores">
+          <ion-label> {{ cargador.nombre }} {{ cargador.apellido }} </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>
