@@ -61,8 +61,9 @@ export class PrecargasComponent implements OnInit {
       componentProps: { precarga, fecha: fecha.toISOString() },
     });
     modal.onDidDismiss().then((val) => {
-      if (val.data)
-        this.precargas = this.precargas.filter((p) => precarga != p);
+      if (val.data) {
+        this.precargas = this.precargas.filter((p) => precarga !== p);
+      }
     });
     return await modal.present();
   }
@@ -78,7 +79,11 @@ export class PrecargasComponent implements OnInit {
     });
     modal.onDidDismiss().then((val) => {
       if (val.data) {
-        this.precargas.push(val.data);
+        if (this.precargas.length === 0) {
+          this.precargas = [val.data];
+        } else {
+          this.precargas.push(val.data);
+        }
       }
 
       console.log(val);
@@ -95,7 +100,7 @@ export class PrecargasComponent implements OnInit {
       .deletePrecarga(precarga.empresa, precarga.id)
       .subscribe((val) => {
         this.precargas = val.results
-          ? this.precargas.filter((p) => p != precarga)
+          ? this.precargas.filter((p) => p !== precarga)
           : this.precargas;
       });
   }
