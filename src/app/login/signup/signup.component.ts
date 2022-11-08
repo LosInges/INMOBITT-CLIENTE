@@ -36,6 +36,7 @@ export class SignupComponent implements OnInit {
 
         this.clienteService.postCliente(this.cliente).subscribe((respuesta)=>{
           console.log(respuesta);
+          this.cerrar()
         })
 
 

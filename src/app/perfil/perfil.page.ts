@@ -41,6 +41,7 @@ export class PerfilPage implements OnInit {
       )
         this.clienteService.postCliente(this.cliente)?.subscribe((val) => {
           console.log(val);
+          this.router.navigate(['/', 'perfil'])
         });
     }
   }

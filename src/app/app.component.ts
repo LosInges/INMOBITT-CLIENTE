@@ -19,8 +19,7 @@ export class AppComponent {
       click: () => this.sesionService.clear(),
       icon: 'log-out-outline',
     },
-    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
-  ];
+    ];
 
   constructor(private sesionService: SessionService) {}
 
