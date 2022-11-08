@@ -22,6 +22,7 @@ export class LoginPage implements OnInit {
   async abrirRegistro() {
     const modal = await this.modalController.create({
       component: SignupComponent,
+      cssClass: 'modalRegistrar'
     });
     return await modal.present();
   }
@@ -29,6 +30,7 @@ export class LoginPage implements OnInit {
   async abrirIngresar() {
     const modal = await this.modalController.create({
       component: LoginComponent,
+      cssClass: 'modalIngresar'
     });
     return await modal.present();
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { LoginService } from 'src/app/services/login.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private sessionService: SessionService,
     private modalController: ModalController,
+    private router: Router,
     private alertController: AlertController
   ) {}
 
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit {
 
         Promise.all(promesa).then(() => {
           this.cerrar()
+          this.router.navigate(['/', 'perfil'])
         });
 
       });

@@ -59,6 +59,7 @@ export class PrecargasComponent implements OnInit {
     const modal = await this.modalControler.create({
       component: DetalleComponent,
       componentProps: { precarga, fecha: fecha.toISOString() },
+      cssClass: 'modalGeneral'
     });
     modal.onDidDismiss().then((val) => {
       if (val.data) {
@@ -76,6 +77,7 @@ export class PrecargasComponent implements OnInit {
         correo: this.correo,
         id: uuidv4(),
       },
+      cssClass: 'modalGeneral'
     });
     modal.onDidDismiss().then((val) => {
       if (val.data) {
