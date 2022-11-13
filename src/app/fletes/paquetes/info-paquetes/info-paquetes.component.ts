@@ -6,14 +6,16 @@ import { CargadoresService } from 'src/app/services/cargadores.service';
 import { FletesService } from 'src/app/services/fletes.service';
 import { SessionService } from 'src/app/services/session.service';
 import { TransporteFleteService } from 'src/app/services/transporte-flete.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-info-paquetes',
   templateUrl: './info-paquetes.component.html',
   styleUrls: ['./info-paquetes.component.scss'],
 })
 export class InfoPaquetesComponent implements OnInit {
-  cargadores: Cargador[] = [];
   @Input() transporteFlete: TransporteFlete;
+  cargadores: Cargador[] = [];
+  api = environment.api;
 
   constructor(
     private modalController: ModalController,
@@ -36,6 +38,6 @@ export class InfoPaquetesComponent implements OnInit {
   }
 
   cerrar() {
-    this.modalController.dismiss()
+    this.modalController.dismiss();
   }
 }
