@@ -1,6 +1,8 @@
-import { ModalController } from '@ionic/angular';
 import { Component, Input, OnInit } from '@angular/core';
+
 import { Empresa } from 'src/app/interfaces/empresa';
+import { ModalController } from '@ionic/angular';
+import { MueblesService } from './../../../services/muebles.service';
 import { Precarga } from 'src/app/interfaces/precarga';
 import { PrecargaService } from 'src/app/services/precarga.service';
 
@@ -14,6 +16,7 @@ export class PrecargaComponent implements OnInit {
   @Input() empresas: Empresa[];
   @Input() correo: string;
   @Input() id: string;
+  muebles = this.muebleService.getMuebles();
 
   precarga: Precarga = {
     id: '',
@@ -23,7 +26,7 @@ export class PrecargaComponent implements OnInit {
     cajas_grandes: 0,
     // eslint-disable-next-line @typescript-eslint/naming-convention
     cajas_medianas: 0,
-    muebles: 0,
+    muebles: [],
     empresa: '',
     cliente: '',
     destino: {
@@ -49,7 +52,8 @@ export class PrecargaComponent implements OnInit {
 
   constructor(
     private precargaService: PrecargaService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private muebleService:MueblesService
   ) {}
 
   ngOnInit() {
