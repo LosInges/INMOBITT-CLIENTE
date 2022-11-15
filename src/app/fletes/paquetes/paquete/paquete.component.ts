@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, Input, OnInit } from '@angular/core';
+
 import { Item } from 'src/app/interfaces/item';
 import { ItemsService } from 'src/app/services/items.service';
+import { ModalController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -12,6 +14,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class PaqueteComponent implements OnInit {
   @Input() id: string;
   @Input() total: number;
+  api = environment.api
   item: Item = {
     id: "",
     id_item: "",
@@ -34,9 +37,5 @@ export class PaqueteComponent implements OnInit {
 
   cerrar() { this.modalController.dismiss() }
 
-  agregarItem() {
-    this.itemService.postItem(this.item).subscribe((res) => {
-      if (res.results) this.modalController.dismiss(this.item)
-    });
-  }
+
 }
