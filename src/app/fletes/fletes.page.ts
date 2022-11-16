@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { NavigationEnd, Route, Router } from '@angular/router';
+import { Navigation } from 'selenium-webdriver';
 import { Flete } from '../interfaces/flete';
 import { FletesService } from '../services/fletes.service';
 import { SessionService } from '../services/session.service';
@@ -15,7 +16,17 @@ export class FletesPage implements OnInit {
     private fletesService: FletesService,
     private router: Router,
     private sessionService: SessionService
-  ) { }
+  ) {
+    router.events.subscribe(e=>{
+      if(e instanceof NavigationEnd){
+        this.sessionService.keys().then(k=>{
+          if(k.length <= 0){
+            this.router.navigate([''])
+          }
+        })
+      }
+    })
+   }
 
   ngOnInit() {
     this.sessionService.get('correo')?.then((correo) => {

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
+import { AlertController } from '@ionic/angular';
 import { Empresa } from 'src/app/interfaces/empresa';
 import { ModalController } from '@ionic/angular';
 import { MueblesService } from './../../../services/muebles.service';
@@ -53,8 +53,21 @@ export class PrecargaComponent implements OnInit {
   constructor(
     private precargaService: PrecargaService,
     private modalController: ModalController,
-    private muebleService:MueblesService
+    private muebleService:MueblesService,
+    private alertController: AlertController
   ) {}
+
+  async mostrarAlerta(titulo:string, subtitulo:string, mensaje:string) {  
+    const alert = await this.alertController.create({  
+      header: titulo,  
+      subHeader: subtitulo,  
+      message: mensaje,  
+      buttons: ['OK']  
+    });  
+    await alert.present();  
+    const result = await alert.onDidDismiss();  
+    console.log(result);  
+  } 
 
   ngOnInit() {
     this.precarga.id = this.id;
@@ -62,12 +75,21 @@ export class PrecargaComponent implements OnInit {
   }
 
   registrarPrecarga() {
-    this.precarga.fecha = this.fecha.split('T')[0];
-    this.precarga.hora = this.fecha.split('T')[1].split('.')[0].substring(0, 5);
-    this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
-      if (res.results) this.modalController.dismiss(this.precarga);
-      else console.log(res);
-    });
+    if (
+      this.precarga.telefono.trim().length <= 0 ||
+      this.precarga.origen == null ||
+      this.precarga.destino == null ||
+      this.precarga.muebles.toString() == "Muebles"
+    ){
+      this.mostrarAlerta("Error", "Campos vacios", "No deje espacios en blanco.")
+    }else{
+      this.precarga.fecha = this.fecha.split('T')[0];
+      this.precarga.hora = this.fecha.split('T')[1].split('.')[0].substring(0, 5);
+      this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
+        if (res.results) this.modalController.dismiss(this.precarga);
+        else console.log(res);
+      });
+    } 
   }
 
   cerrar() {

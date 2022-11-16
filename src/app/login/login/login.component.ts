@@ -22,6 +22,18 @@ export class LoginComponent implements OnInit {
     private alertController: AlertController
   ) {}
 
+  async mostrarAlerta(titulo:string, subtitulo:string, mensaje:string) {  
+    const alert = await this.alertController.create({  
+      header: titulo,  
+      subHeader: subtitulo,  
+      message: mensaje,  
+      buttons: ['OK']  
+    });  
+    await alert.present();  
+    const result = await alert.onDidDismiss();  
+    console.log(result);  
+  } 
+
   ngOnInit() {}
 
   onSubmit() {
@@ -35,7 +47,7 @@ export class LoginComponent implements OnInit {
         console.log(respuesta);
         if (respuesta.session.tipo !== 'cliente')   {
           console.log('NO es Cliente');
-          this.presentAlert()
+          this.mostrarAlerta("Error:", "Correo inválido", "Recuerde bien su correo y contraseña")
           return;
         }
         const promesa: Promise<any>[] = [
@@ -47,20 +59,9 @@ export class LoginComponent implements OnInit {
           this.cerrar()
           this.router.navigate(['/', 'perfil'])
         });
-
       });
   }
-
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'USUARIO INVÁLIDO',
-      subHeader: 'Este no es un correo válido',
-      message: 'Recuerde bien su correo y contraseña',
-      buttons: ['OK'],
-    });
-
-    await alert.present();
-  }
+ 
   cerrar(){
     this.modalController.dismiss();
   }
