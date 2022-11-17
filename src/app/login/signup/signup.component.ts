@@ -19,7 +19,8 @@ export class SignupComponent implements OnInit {
   };
   confirmPassword = '';
 
-  constructor(private modalController: ModalController,
+  constructor(
+    private modalController: ModalController,
     private clienteService: ClienteService,
     private alertCtrl: AlertController,
     private router: Router,
