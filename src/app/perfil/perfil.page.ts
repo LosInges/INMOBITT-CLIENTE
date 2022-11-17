@@ -22,7 +22,9 @@ export class PerfilPage implements OnInit {
     private clienteService: ClienteService,
     private sessionService: SessionService,
     private router: Router,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private alertController: AlertController
+
   ) {
     router.events.subscribe(e=>{
       if(e instanceof NavigationEnd){
@@ -56,32 +58,62 @@ export class PerfilPage implements OnInit {
     });
   }
 
-  actualizarCliente() {
-    if (this.cliente.password === this.confirmPassword) {
-      if (
-        this.cliente.apellido.trim().length <= 0 ||
-        this.cliente.nombre.trim().length <= 0 ||
-        this.cliente.password.trim().length <= 0
-      ){
-        this.clienteService.postCliente(this.cliente)?.subscribe((val) => {
-          console.log(val);
-          this.mostrarAlerta("Error", "Campos vacios", "No deje espacios en blanco.")
-        });
-      }else{
-        if (
-          this.cliente.apellido.trim().length > 0 &&
-          this.cliente.nombre.trim().length > 0 &&
-          this.cliente.password.trim().length > 0
-        )
-          this.clienteService.postCliente(this.cliente)?.subscribe((val) => {
-            console.log(val);
-            window.location.reload();
-          });
-      } 
+  async actualizarCliente() {
+    this.validarCampos()
+  }
+
+  validarCampos(){
+    if (
+      this.cliente.apellido.trim().length <= 0 ||
+      this.cliente.nombre.trim().length <= 0 ||
+      this.cliente.password.trim().length <= 0
+    ){
+      this.clienteService.postCliente(this.cliente)?.subscribe((val) => {
+        console.log(val);
+        this.mostrarAlerta("Error", "Campos vacios", "No deje espacios en blanco.")
+      });
     }else{
-        this.mostrarAlerta("Error:", "Confirmación de clave incorrecta", "¿es correcta o esta vacia?")
+       this.presentarAlert()
     }
   }
+
+
+  async presentarAlert() {
+    let alert: HTMLIonAlertElement;
+      alert = await this.alertController.create({
+        header: 'Confirmar Contraseña',
+        inputs: [
+          {
+            name: 'password',
+            placeholder: 'Contraseña',
+            type: 'text',
+          },
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+          },
+          {
+            text: 'Aceptar',
+            role: 'accept',
+          },
+        ],
+      });
+      alert.onDidDismiss().then(data => {
+        if(this.cliente.password == data.data.values.password){
+          this.clienteService.postCliente(this.cliente)?.subscribe((val) => {
+          console.log(val);
+          window.location.reload();
+        });
+      }else{
+        this.mostrarAlerta("Error:", "Confirmación de clave incorrecta", "¿es correcta o esta vacia?")
+    }
+
+      })
+    await alert.present();
+  }
+
 
   eliminarCuenta() {
     if (this.cliente.password === this.confirmPassword)
