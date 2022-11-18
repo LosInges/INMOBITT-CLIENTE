@@ -16,12 +16,18 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
-  },  {
+  },
+  {
+    path: 'inmobiliaria',
+    loadChildren: () => import('./inmobiliaria/inmobiliaria.module').then( m => m.InmobiliariaPageModule)
+  },
+  {
     path: 'fletes',
     loadChildren: () => import('./fletes/fletes.module').then( m => m.FletesPageModule)
-  }
-
-
+  },   {
+    path: 'perfil',
+    loadChildren: () => import('./inmobiliaria/perfil/perfil.module').then( m => m.PerfilPageModule)
+  }, 
 ];
 
 @NgModule({

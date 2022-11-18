@@ -10,7 +10,7 @@ export class AppComponent {
   public appPages = [
 
     { title: 'Perfil', url: '/perfil/', icon: 'mail' },
-    { title: 'Inmobiliarias', url: '/folder/Outbox', icon: 'paper-plane' },
+    { title: 'Inmobiliarias', url: '/inmobiliaria', icon: 'business' },
     { title: 'Fletes', url: '/fletes', icon: 'heart' },
     {
       title: 'Cerrar Sesion',

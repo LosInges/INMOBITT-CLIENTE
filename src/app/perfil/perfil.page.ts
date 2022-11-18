@@ -86,7 +86,7 @@ export class PerfilPage implements OnInit {
           {
             name: 'password',
             placeholder: 'Contraseña',
-            type: 'text',
+            type: 'password',
           },
         ],
         buttons: [

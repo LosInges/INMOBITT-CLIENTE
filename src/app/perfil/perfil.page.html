@@ -7,9 +7,7 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title color="secondary"
-        > VISTA GENERAL </ion-card-title
-      >
+      <ion-card-title color="secondary"> VISTA GENERAL </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
@@ -30,17 +28,17 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="floating">CONTRASEÑA </ion-label>
-                  <ion-input [(ngModel)]="cliente.password"></ion-input>
+                  <ion-input [(ngModel)]="cliente.password" type="password"></ion-input>
                 </ion-item>
               </ion-col>
-<!-- 
+              <!-- 
               <ion-col>
                 <ion-item>
                   <ion-label position="floating">CONFIRMAR CONTRASEÑA </ion-label>
                   <ion-input [(ngModel)]="confirmPassword"></ion-input>
                 </ion-item>
               </ion-col> -->
-              
+
             </ion-row>
 
             <ion-row>
@@ -57,13 +55,13 @@
               </ion-col>
               <ion-col>
                 <ion-item>
-                <ion-label position="floating"> APELLIDOS</ion-label>
-                <ion-input [(ngModel)]="cliente.apellido"></ion-input>
-              </ion-item>
+                  <ion-label position="floating"> APELLIDOS</ion-label>
+                  <ion-input [(ngModel)]="cliente.apellido"></ion-input>
+                </ion-item>
               </ion-col>
             </ion-row>
           </ion-grid>
-          
+
           <ion-toolbar>
             <ion-buttons slot="start">
               <ion-button color="danger" fill="solid" (click)="eliminarCuenta()">
@@ -72,12 +70,7 @@
             </ion-buttons>
             <ion-buttons slot="end">
               <ion-col size="10">
-                <ion-button
-                  class="ion-float-right"
-                  color="secondary"
-                  fill="solid"
-                  (click)="actualizarCliente()"
-                >
+                <ion-button class="ion-float-right" color="secondary" fill="solid" (click)="actualizarCliente()">
                   ACTUALIZAR
                 </ion-button>
               </ion-col>
