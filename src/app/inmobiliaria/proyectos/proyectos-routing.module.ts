@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: ProyectosPage
+  },
+  {
+    path: ':proyecto/inmuebles',
+    loadChildren: () => import('./inmuebles/inmuebles.module').then( m => m.InmueblesPageModule)
   }
+
 ];
 
 @NgModule({

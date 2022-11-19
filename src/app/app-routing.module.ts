@@ -24,10 +24,12 @@ const routes: Routes = [
   {
     path: 'fletes',
     loadChildren: () => import('./fletes/fletes.module').then( m => m.FletesPageModule)
-  },   {
+  },   
+  {
     path: 'perfil',
     loadChildren: () => import('./inmobiliaria/perfil/perfil.module').then( m => m.PerfilPageModule)
-  }, 
+  },
+
 ];
 
 @NgModule({

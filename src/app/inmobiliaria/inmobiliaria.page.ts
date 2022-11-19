@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Inmobiliaria } from '../interfaces/inmobiliaria'; 
 import { Router } from '@angular/router';
 import { InmobiliariaService } from '../services/inmobiliaria.service';
+import { environment } from 'src/environments/environment';
  
 @Component({
   selector: 'app-inmobiliaria',
@@ -10,6 +11,7 @@ import { InmobiliariaService } from '../services/inmobiliaria.service';
 })
 export class InmobiliariaPage implements OnInit {
   inmobiliarias: Inmobiliaria[] = [];
+  api = environment.api; 
 
   constructor(
     private inmobiliariaService: InmobiliariaService, 
