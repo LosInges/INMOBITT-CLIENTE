@@ -28,8 +28,7 @@ export class InmueblesPage implements OnInit {
         this.inmuebleService
           .getInmueblesProyecto(params.proyecto, params.inmobiliaria)
           .subscribe((inmuebles) => {
-            this.inmuebles = inmuebles; 
-            console.log(inmuebles)
+            this.inmuebles = inmuebles.filter(inmueble => !inmueble.borrado && inmueble.visible)
           });
       }
     });

@@ -11,7 +11,8 @@ export class AppComponent {
 
     { title: 'Perfil', url: '/perfil/', icon: 'mail' },
     { title: 'Inmobiliarias', url: '/inmobiliaria', icon: 'business' },
-    { title: 'Fletes', url: '/fletes', icon: 'heart' },
+    { title: 'Mis Inmuebles', url: '/mis-inmuebles', icon: 'home-outline'},
+    { title: 'Fletes', url: '/fletes', icon: 'logo-dropbox' },
     {
       title: 'Cerrar Sesion',
       url: '',

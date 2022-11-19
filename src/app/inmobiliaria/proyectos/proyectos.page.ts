@@ -28,8 +28,7 @@ export class ProyectosPage implements OnInit {
         this.proyectosService
           .getProyectosInmobiliaria(params.inmobiliaria)
           .subscribe((proyectos) => {
-            this.proyectos = proyectos; 
-            console.log(proyectos)
+            this.proyectos = proyectos;
           });
       }
     });

@@ -28,7 +28,11 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./inmobiliaria/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },  {
+    path: 'mis-inmuebles',
+    loadChildren: () => import('./mis-inmuebles/mis-inmuebles.module').then( m => m.MisInmueblesPageModule)
   },
+
 
 ];
 

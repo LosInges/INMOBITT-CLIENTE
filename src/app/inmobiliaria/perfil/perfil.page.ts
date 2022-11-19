@@ -26,12 +26,8 @@ export class PerfilPage implements OnInit {
     foto: '',
     estado: '',
     direccion: {
-      calle: '',
-      codigopostal: '',
-      colonia: '',
-      numeroexterior: '',
-      numerointerior: '',
-      estado: '',
+      lat: 0,
+      lng: 0
     },
     sedes: [],
   };

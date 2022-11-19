@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Inmueble } from 'src/app/interfaces/inmueble';
-import { InmuebleService } from 'src/app/services/inmueble.service';
+import { ActivatedRoute } from '@angular/router';
 import { Agente } from 'src/app/interfaces/agente';
-import { SessionService } from 'src/app/services/session.service';
-import { environment } from 'src/environments/environment';
+import { Inmueble } from 'src/app/interfaces/inmueble';
 import { Notario } from 'src/app/interfaces/notario';
 import { AgenteService } from 'src/app/services/agente.service';
+import { InmuebleService } from 'src/app/services/inmueble.service';
 import { NotarioService } from 'src/app/services/notario.service';
+import { SessionService } from 'src/app/services/session.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-inmueble',
@@ -15,7 +15,7 @@ import { NotarioService } from 'src/app/services/notario.service';
   styleUrls: ['./inmueble.page.scss'],
 })
 export class InmueblePage implements OnInit {
-  
+  api = environment.api;
   inmueble: Inmueble={
     inmobiliaria: '',
     proyecto: '',
@@ -23,8 +23,12 @@ export class InmueblePage implements OnInit {
     estado: '',
     foto: '',
     direccion: {
-      lat: 0,
-      lng: 0
+      calle: '',
+      codigopostal: '',
+      colonia: '',
+      numeroexterior: '',
+      numerointerior: '',
+      estado: '',
     },
     precio_renta: 0,
     precio_venta: 0,
@@ -57,12 +61,10 @@ export class InmueblePage implements OnInit {
     nombre: '',
     rfc: ''
   }
-  api = environment.api
   constructor(
     private sessionService: SessionService,
-    private activatedRoute: ActivatedRoute,
     private inmuebleService: InmuebleService,
-    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private agenteService: AgenteService,
     private notarioService: NotarioService
 
@@ -90,12 +92,12 @@ export class InmueblePage implements OnInit {
     
   }
 
-  solicitar(){
-    this.inmuebleService.postInmuebleCliente(this.inmueble).subscribe(val =>{
+  quitar(){
+    this.inmuebleService.deleteInmuebleCliente(this.inmueble).subscribe(val =>{
       if(val.results){
-        console.log('se registró')
+        console.log('se quitó')
       }else{
-        console.log('algo falló')
+        console.log(val)
       }
     })
   }
