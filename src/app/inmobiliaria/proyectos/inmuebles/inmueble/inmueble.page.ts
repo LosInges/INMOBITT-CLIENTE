@@ -23,12 +23,8 @@ export class InmueblePage implements OnInit {
     estado: '',
     foto: '',
     direccion: {
-      calle: '',
-      codigopostal: '',
-      colonia: '',
-      numeroexterior: '',
-      numerointerior: '',
-      estado: '',
+      lat: 0,
+      lng: 0
     },
     precio_renta: 0,
     precio_venta: 0,
