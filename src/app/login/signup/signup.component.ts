@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Router } from '@angular/router';
+
+import { AlertController } from '@ionic/angular';
 import { Cliente } from 'src/app/interfaces/cliente';
 import { ClienteService } from 'src/app/services/cliente.service';
-import { AlertController } from '@ionic/angular';
 import { LoginService } from 'src/app/services/login.service';
+import { ModalController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -113,7 +114,7 @@ export class SignupComponent implements OnInit {
           'No deje espacios en blanco.'
         );
       }
-    } 
+    }
   }
 
   cerrar() {
