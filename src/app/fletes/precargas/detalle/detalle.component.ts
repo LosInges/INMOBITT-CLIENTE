@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Precarga } from 'src/app/interfaces/precarga';
+import { MapsComponent } from 'src/app/maps/maps.component';
 import { SessionService } from 'src/app/services/session.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class DetalleComponent implements OnInit {
 
   constructor(
     private modalControler: ModalController,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -23,6 +25,33 @@ export class DetalleComponent implements OnInit {
       this.empresa = empresa;
       //precarga service ..()
     });
+  }
+
+  async guardarOrigen(){
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: {position: this.precarga.origen},
+      cssClass: 'modalGeneral',
+    });
+    modal.onDidDismiss().then((res) => {
+      if (res.data) {
+        this.precarga.origen = res.data.pos;
+      }
+    });
+    return modal.present();
+  }
+  async guardarDestino(){
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: {position: this.precarga.destino},
+      cssClass: 'modalGeneral',
+    });
+    modal.onDidDismiss().then((res) => {
+      if (res.data) {
+        this.precarga.destino = res.data.pos;
+      }
+    });
+    return modal.present();
   }
 
   cerrar() {
