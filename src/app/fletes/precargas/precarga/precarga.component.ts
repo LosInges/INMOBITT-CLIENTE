@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { MueblesService } from './../../../services/muebles.service';
 import { Precarga } from 'src/app/interfaces/precarga';
 import { PrecargaService } from 'src/app/services/precarga.service';
+import { MapsComponent } from 'src/app/maps/maps.component';
 
 @Component({
   selector: 'app-precarga',
@@ -89,6 +90,32 @@ export class PrecargaComponent implements OnInit {
         else console.log(res);
       });
     }
+    
+  }
+
+  async guardarOrigen(){
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      cssClass: 'modalGeneral',
+    });
+    modal.onDidDismiss().then((res) => {
+      if (res.data) {
+        this.precarga.origen = res.data.pos;
+      }
+    });
+    return modal.present();
+  }
+  async guardarDestino(){
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      cssClass: 'modalGeneral',
+    });
+    modal.onDidDismiss().then((res) => {
+      if (res.data) {
+        this.precarga.destino = res.data.pos;
+      }
+    });
+    return modal.present();
   }
 
   cerrar() {
