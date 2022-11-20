@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import { AlertController } from '@ionic/angular';
 import { Empresa } from 'src/app/interfaces/empresa';
+import { MapsComponent } from 'src/app/maps/maps.component';
 import { ModalController } from '@ionic/angular';
 import { MueblesService } from './../../../services/muebles.service';
 import { Precarga } from 'src/app/interfaces/precarga';
 import { PrecargaService } from 'src/app/services/precarga.service';
-import { MapsComponent } from 'src/app/maps/maps.component';
 
 @Component({
   selector: 'app-precarga',
@@ -90,7 +91,6 @@ export class PrecargaComponent implements OnInit {
         else console.log(res);
       });
     }
-    
   }
 
   async guardarOrigen(){
