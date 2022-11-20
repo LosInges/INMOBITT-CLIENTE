@@ -8,6 +8,8 @@ import { environment } from 'src/environments/environment';
 import { Notario } from 'src/app/interfaces/notario';
 import { AgenteService } from 'src/app/services/agente.service';
 import { NotarioService } from 'src/app/services/notario.service';
+import { AlertController, ModalController } from '@ionic/angular';
+import { MapsComponent } from 'src/app/maps/maps.component';
 
 @Component({
   selector: 'app-inmueble',
@@ -64,40 +66,75 @@ export class InmueblePage implements OnInit {
     private inmuebleService: InmuebleService,
     private router: Router,
     private agenteService: AgenteService,
-    private notarioService: NotarioService
-
+    private notarioService: NotarioService,
+    private modalController: ModalController,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
     this.sessionService.get('correo').then(correo =>{
-      this.inmueble.cliente=correo
-    })
-    this.activatedRoute.params.subscribe((params) => { 
-      if (params.titulo) {
-        this.inmuebleService
-          .getInmueble(params.inmobiliaria, params.proyecto, params.titulo)
-          .subscribe((inmueble) => {
-            this.inmueble = inmueble; 
-            this.agenteService.getAgente(inmueble.inmobiliaria, inmueble.agente).subscribe(agente =>{
-              this.agente = agente
+      
+      
+      this.activatedRoute.params.subscribe((params) => { 
+        if (params.titulo) {
+          this.inmuebleService
+            .getInmueble(params.inmobiliaria, params.proyecto, params.titulo)
+            .subscribe((inmueble) => {
+              this.inmueble = inmueble;
+              this.inmueble.cliente=correo; 
+              this.agenteService.getAgente(inmueble.inmobiliaria, inmueble.agente).subscribe(agente =>{
+                this.agente = agente
+              });
+              this.notarioService.getNotario(inmueble.inmobiliaria, inmueble.notario).subscribe(notario =>{
+                this.notario = notario
+              })
             });
-            this.notarioService.getNotario(inmueble.inmobiliaria, inmueble.notario).subscribe(notario =>{
-              this.notario = notario
-            })
-          });
-      }
+        }
+      });
     });
     
+  }
+
+  async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
+    const alert = await this.alertCtrl.create({
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK'],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    console.log(result);
   }
 
   solicitar(){
     this.inmuebleService.postInmuebleCliente(this.inmueble).subscribe(val =>{
       if(val.results){
-        console.log('se registró')
+        this.mostrarAlerta(
+          'Exito',
+          'Se registró correctamente',
+          ''
+        );
       }else{
-        console.log('algo falló')
+        this.mostrarAlerta(
+          'Error',
+          'No se registró',
+          ''
+        );
+        console.log(this.inmueble,val);
+        
       }
     })
+  }
+
+  async verDireccion() {
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: { position: this.inmueble.direccion },
+      cssClass: 'modalGeneral',
+    });
+
+    modal.present();
   }
 
 }

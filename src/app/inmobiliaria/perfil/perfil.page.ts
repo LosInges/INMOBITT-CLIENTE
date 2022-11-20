@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';  
+import { ModalController } from '@ionic/angular';
 import { Inmobiliaria } from 'src/app/interfaces/inmobiliaria'; 
+import { MapsComponent } from 'src/app/maps/maps.component';
 import { EstadosService } from 'src/app/services/estados.service';
 import { InmobiliariaService } from 'src/app/services/inmobiliaria.service'; 
 import { SessionService } from 'src/app/services/session.service';
@@ -37,7 +39,8 @@ export class PerfilPage implements OnInit {
     private sessionService: SessionService,
     private estadosService: EstadosService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -53,4 +56,15 @@ export class PerfilPage implements OnInit {
       }
     });
   }
+
+  async verDireccion() {
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: { position: this.inmobiliaria.direccion },
+      cssClass: 'modalGeneral',
+    });
+
+    modal.present();
+  }
+
 }

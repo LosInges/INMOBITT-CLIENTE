@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/inmobiliaria"></ion-back-button>
+      <ion-back-button defaultHref="/mis-inmuebles"></ion-back-button>
     </ion-buttons>
 
     <ion-title color="secondary">INMUEBLE</ion-title>
@@ -94,8 +94,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="floating"> DIRECCIÓN </ion-label>
-                  <ion-input disabled> </ion-input>
+                  <ion-button (click)="verDireccion()" expand="block">Ver Direccion</ion-button>
                 </ion-item>
               </ion-col>
 

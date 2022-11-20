@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/inmobiliaria"></ion-back-button>
+    </ion-buttons>
     <ion-title color="secondary">INMOBILIARIA</ion-title>
     </ion-toolbar>
 </ion-header>
@@ -49,8 +52,7 @@
 
               <ion-col>
                 <ion-item>
-                  <ion-label position="floating" > DIRECCIÓN </ion-label>
-                  <ion-input disabled> </ion-input>
+                  <ion-button (click)="verDireccion()">VER DIRECCION</ion-button>
                 </ion-item>
               </ion-col>
 
@@ -74,13 +76,7 @@
 
           <ion-grid>
             <ion-row>
-              <ion-col>
-                <ion-item>
-                  <ion-label position="floating"> NOTARIO </ion-label>
-                  <ion-input disabled> </ion-input>
-                </ion-item>
-              </ion-col>
-
+              
               <ion-col>
                 <ion-item>
                   <ion-row>

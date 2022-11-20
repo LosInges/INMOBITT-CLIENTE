@@ -17,9 +17,9 @@ export class PrecargaService {
     );
   }
 
-  deletePrecarga(empresa: string, id: string): Observable<any> {
-    return this.httpClient.delete(`${environment.api}/precarga`, {
-      body: { empresa, id },
+  deletePrecarga(cliente: string, id: string, empresa:string): Observable<any> {
+    return this.httpClient.delete(`${environment.api}/precarga/cliente`, {
+      body: { cliente, id, empresa },
     });
   }
 
