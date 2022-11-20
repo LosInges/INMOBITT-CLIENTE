@@ -73,22 +73,24 @@ export class InmueblePage implements OnInit {
 
   ngOnInit() {
     this.sessionService.get('correo').then(correo =>{
-      this.inmueble.cliente=correo
-    })
-    this.activatedRoute.params.subscribe((params) => { 
-      if (params.titulo) {
-        this.inmuebleService
-          .getInmueble(params.inmobiliaria, params.proyecto, params.titulo)
-          .subscribe((inmueble) => {
-            this.inmueble = inmueble; 
-            this.agenteService.getAgente(inmueble.inmobiliaria, inmueble.agente).subscribe(agente =>{
-              this.agente = agente
+      
+      
+      this.activatedRoute.params.subscribe((params) => { 
+        if (params.titulo) {
+          this.inmuebleService
+            .getInmueble(params.inmobiliaria, params.proyecto, params.titulo)
+            .subscribe((inmueble) => {
+              this.inmueble = inmueble;
+              this.inmueble.cliente=correo; 
+              this.agenteService.getAgente(inmueble.inmobiliaria, inmueble.agente).subscribe(agente =>{
+                this.agente = agente
+              });
+              this.notarioService.getNotario(inmueble.inmobiliaria, inmueble.notario).subscribe(notario =>{
+                this.notario = notario
+              })
             });
-            this.notarioService.getNotario(inmueble.inmobiliaria, inmueble.notario).subscribe(notario =>{
-              this.notario = notario
-            })
-          });
-      }
+        }
+      });
     });
     
   }
@@ -103,7 +105,6 @@ export class InmueblePage implements OnInit {
     await alert.present();
     const result = await alert.onDidDismiss();
     console.log(result);
-    this.router.navigate(['/', 'login']);
   }
 
   solicitar(){
@@ -120,6 +121,8 @@ export class InmueblePage implements OnInit {
           'No se registró',
           ''
         );
+        console.log(this.inmueble,val);
+        
       }
     })
   }

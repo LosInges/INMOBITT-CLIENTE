@@ -99,11 +99,13 @@ export class PrecargasComponent implements OnInit {
 
   eliminar(precarga: Precarga) {
     this.precargaService
-      .deletePrecarga(precarga.empresa, precarga.id)
+      .deletePrecarga(this.correo, precarga.id, precarga.empresa)
       .subscribe((val) => {
         this.precargas = val.results
           ? this.precargas.filter((p) => p !== precarga)
           : this.precargas;
+          console.log(val);
+          
       });
   }
 }
