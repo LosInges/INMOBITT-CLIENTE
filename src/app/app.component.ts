@@ -9,10 +9,10 @@ export class AppComponent {
   [x: string]: any;
   public appPages = [
 
-    { title: 'Perfil', url: '/perfil/', icon: 'mail' },
+    { title: 'Perfil', url: '/perfil/', icon: 'person' },
     { title: 'Inmobiliarias', url: '/inmobiliaria', icon: 'business' },
     { title: 'Mis Inmuebles', url: '/mis-inmuebles', icon: 'home-outline'},
-    { title: 'Fletes', url: '/fletes', icon: 'logo-dropbox' },
+    { title: 'Fletes', url: '/fletes', icon: 'bus' },
     {
       title: 'Cerrar Sesion',
       url: '',

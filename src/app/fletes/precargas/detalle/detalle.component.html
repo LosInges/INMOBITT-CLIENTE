@@ -43,7 +43,7 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> TELEFONO </ion-label>
-              <ion-input [(ngModel)]="precarga.telefono" disabled>
+              <ion-input [(ngModel)]="precarga.telefono">
               </ion-input>
             </ion-item>
           </ion-col>
@@ -59,28 +59,52 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> CAJAS CHICAS </ion-label>
-              <ion-input type="number" [(ngModel)]="precarga.cajas_chicas" disabled></ion-input>
+              <ion-input type="number" [(ngModel)]="precarga.cajas_chicas" ></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> CAJAS MEDIANAS </ion-label>
-              <ion-input type="number" [(ngModel)]="precarga.cajas_medianas" disabled></ion-input>
+              <ion-input type="number" [(ngModel)]="precarga.cajas_medianas" ></ion-input>
             </ion-item>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> CAJAS GRANDES </ion-label>
-              <ion-input type="number" [(ngModel)]="precarga.cajas_grandes" disabled></ion-input>
+              <ion-input type="number" [(ngModel)]="precarga.cajas_grandes" ></ion-input>
             </ion-item>
           </ion-col>
+         
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> MUEBLES </ion-label>
-              <ion-input type="number" [(ngModel)]="precarga.muebles" disabled></ion-input>
+              <ion-select
+                [(ngModel)]="precarga.muebles"
+                [multiple]="true"
+                placeholder="Muebles"
+              >
+                <ion-select-option
+                  *ngFor="let mueble of muebles"
+                  [value]="mueble"
+                >
+                  {{ mueble.nombre }}
+                </ion-select-option>
+              </ion-select>
             </ion-item>
           </ion-col>
+          
         </ion-row>
+        <ion-list>
+          <ng-container *ngIf="precarga.muebles">
+            <ion-item *ngFor="let mueble of precarga.muebles">
+              <ion-label position="fixed"> {{ mueble.nombre }} </ion-label>
+              <ion-input
+                type="number"
+                [(ngModel)]="mueble.cantidad"
+              ></ion-input>
+            </ion-item>
+          </ng-container>
+        </ion-list>
       </ion-grid>
     </ion-card-content>
   </ion-card>
@@ -89,40 +113,43 @@
     <ion-card-content>
       <ion-grid>
 
-          <ion-row>
-            <ion-col class="ion-margin-top ion-margin-bottom">
-              <ion-item>
-                <ion-button (click)="guardarOrigen()">ORIGEN</ion-button>
-              </ion-item>
-            </ion-col>
+        <ion-row>
+          <ion-col class="ion-margin-top ion-margin-bottom">
+            <ion-item>
+              <ion-button (click)="guardarOrigen()">ORIGEN</ion-button>
+            </ion-item>
+          </ion-col>
 
-            <ion-col class="ion-margin-top ion-margin-bottom">
-              <ion-item>
-                <ion-button (click)="guardarDestino()">DESTINO</ion-button>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-
-
+          <ion-col class="ion-margin-top ion-margin-bottom">
+            <ion-item>
+              <ion-button (click)="guardarDestino()">DESTINO</ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
 
         <ion-row>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label>Fecha y Hora</ion-label>
-              <ion-datetime [(ngModel)]="fecha" disabled [yearValues]="precarga.fecha.split('-')[0]">
+              <ion-datetime [(ngModel)]="fecha" [yearValues]="precarga.fecha.split('-')[0]">
                 <span slot="time-label">Hora</span>
               </ion-datetime>
             </ion-item>
           </ion-col>
         </ion-row>
 
-        <ion-row>
-          <ion-buttons>
-            <ion-button (click)="actualizar()">
-              ACTUALIZAR
-            </ion-button>
-          </ion-buttons>
-        </ion-row>
+        
+          <ion-button class="ion-margin-top" type="submit" color="light" (click)="cerrar()" >
+            CERRAR
+          </ion-button>
+    
+          <ion-button
+            class="ion-float-right ion-margin-top"
+            fill="solid"
+            (click)="actualizar()"
+          >
+            actualizar
+          </ion-button>
       </ion-grid>
     </ion-card-content>
   </ion-card>

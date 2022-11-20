@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 import { Agente } from 'src/app/interfaces/agente';
 import { Inmueble } from 'src/app/interfaces/inmueble';
 import { Notario } from 'src/app/interfaces/notario';
+import { MapsComponent } from 'src/app/maps/maps.component';
 import { AgenteService } from 'src/app/services/agente.service';
 import { InmuebleService } from 'src/app/services/inmueble.service';
 import { NotarioService } from 'src/app/services/notario.service';
@@ -62,7 +64,8 @@ export class InmueblePage implements OnInit {
     private inmuebleService: InmuebleService,
     private activatedRoute: ActivatedRoute,
     private agenteService: AgenteService,
-    private notarioService: NotarioService
+    private notarioService: NotarioService,
+    private modalController:ModalController
 
   ) { }
 
@@ -96,6 +99,16 @@ export class InmueblePage implements OnInit {
         console.log(val)
       }
     })
+  }
+
+  async verDireccion() {
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: { position: this.inmueble.direccion },
+      cssClass: 'modalGeneral',
+    });
+
+    modal.present();
   }
 
 }
