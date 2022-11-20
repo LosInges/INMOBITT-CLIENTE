@@ -1,7 +1,8 @@
+import { AlertController, ModalController } from '@ionic/angular';
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Precarga } from 'src/app/interfaces/precarga';
 import { MapsComponent } from 'src/app/maps/maps.component';
+import { Precarga } from 'src/app/interfaces/precarga';
+import { PrecargaService } from './../../../services/precarga.service';
 import { SessionService } from 'src/app/services/session.service';
 
 @Component({
@@ -17,7 +18,10 @@ export class DetalleComponent implements OnInit {
   constructor(
     private modalControler: ModalController,
     private sessionService: SessionService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertConttroller: AlertController,
+    private precargaService: PrecargaService
+
   ) {}
 
   ngOnInit() {
@@ -30,7 +34,7 @@ export class DetalleComponent implements OnInit {
   async guardarOrigen(){
     const modal = await this.modalController.create({
       component: MapsComponent,
-      componentProps: {position: this.precarga.origen},
+      componentProps:{position: this.precarga.origen},
       cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((res) => {
@@ -43,7 +47,6 @@ export class DetalleComponent implements OnInit {
   async guardarDestino(){
     const modal = await this.modalController.create({
       component: MapsComponent,
-      componentProps: {position: this.precarga.destino},
       cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((res) => {
@@ -52,6 +55,23 @@ export class DetalleComponent implements OnInit {
       }
     });
     return modal.present();
+  }
+
+  actualizar() {
+    this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
+      if (res.results){
+        this.alertConttroller
+        .create({
+          header: 'ÉXITOSAME',
+          message: 'Se ACTUALIZÓ la Precarga',
+          buttons: ['CERRAR'],
+        })
+        .then((alert) => {
+          alert.present();
+        });
+      }
+      else console.log(res);
+    });
   }
 
   cerrar() {
