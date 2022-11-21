@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/inmobiliaria"></ion-back-button>
     </ion-buttons>
-    <ion-title color="secondary">MIS INMUBLES</ion-title>
+    <ion-title color="secondary">MIS INMUEBLES</ion-title>
 
   </ion-toolbar>
 </ion-header>
@@ -85,7 +85,7 @@
       <ion-item-sliding *ngFor="let inmueble of inmuebles" #itemSliding>
         <ion-item>
           <ion-img src="{{api}}/{{inmueble.foto}}"></ion-img>
-  
+
           <ion-label>{{inmueble.titulo}} </ion-label>
           <ion-label *ngIf="inmueble.precio_venta>0"
             >{{inmueble.precio_venta}}
@@ -101,7 +101,7 @@
             </ion-label>
           </ion-item-option>
         </ion-item-options>
-       
+
       </ion-item-sliding>
     </ion-list>
   </ion-content>

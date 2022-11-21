@@ -22,8 +22,7 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="floating"> TITULO </ion-label>
-                  <ion-input [value]="inmueble.titulo" disabled>
-                  </ion-input>
+                  <ion-input [value]="inmueble.titulo" disabled> </ion-input>
                 </ion-item>
               </ion-col>
 
@@ -36,7 +35,6 @@
 
               <ion-col>
                 <ion-item>
-                  
                   <ion-img
                     *ngIf="inmueble.foto"
                     src="{{ api }}/{{ inmueble.foto }}"
@@ -57,7 +55,6 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="floating"> AGENTE </ion-label>
-
                   <ion-img> {{api}}/{{inmueble.foto}} </ion-img>
                   <ion-input
                     value="{{agente.nombre}} {{agente.apellido}}"
@@ -70,13 +67,13 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="floating"> NOTARIO </ion-label>
-
-                  <ion-img> {{api}}/{{inmueble.foto}} </ion-img>
+                  <ion-img> {{api}}/{{notario.foto}} </ion-img>
                   <ion-input
                     value="{{notario.nombre}} {{notario.apellido}}"
                     disabled
                   >
                   </ion-input>
+                  <ion-input disabled value="{{notario.correo}}"> </ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -93,15 +90,28 @@
           <ion-grid>
             <ion-row>
               <ion-col>
+                <ion-slides pager="true" [options]="slideOpts">
+                  <ion-slide *ngFor="let imagen of imagenes">
+                    <img src="{{api}}/{{imagen.ruta}}" />
+                  </ion-slide>
+                </ion-slides>
+              </ion-col>
+              <ion-col>
                 <ion-item>
-                  <ion-button (click)="verDireccion()" expand="block">Ver Direccion</ion-button>
+                  <ion-button (click)="verDireccion()" expand="block"
+                    >Ver Direccion</ion-button
+                  >
                 </ion-item>
               </ion-col>
 
               <ion-col>
                 <ion-item>
                   <ion-label position="floating"> PISOS </ion-label>
-                  <ion-input type="number" [(ngModel)]="inmueble.pisos" disabled>
+                  <ion-input
+                    type="number"
+                    [(ngModel)]="inmueble.pisos"
+                    disabled
+                  >
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -109,7 +119,11 @@
               <ion-col>
                 <ion-item>
                   <ion-label position="floating"> CUARTOS </ion-label>
-                  <ion-input type="number" [(ngModel)]="inmueble.cuartos" disabled>
+                  <ion-input
+                    type="number"
+                    [(ngModel)]="inmueble.cuartos"
+                    disabled
+                  >
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -144,7 +158,11 @@
               <ion-col>
                 <ion-item *ngIf="inmueble.precio_renta>0">
                   <ion-label position="floating"> PRECIO RENTA </ion-label>
-                  <ion-input type="number" [(ngModel)]="inmueble.precio_renta" disabled>
+                  <ion-input
+                    type="number"
+                    [(ngModel)]="inmueble.precio_renta"
+                    disabled
+                  >
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -152,24 +170,23 @@
               <ion-col>
                 <ion-item *ngIf="inmueble.precio_venta>0">
                   <ion-label position="floating"> PRECIO VENTA </ion-label>
-                  <ion-input type="number" [(ngModel)]="inmueble.precio_venta" disabled>
+                  <ion-input
+                    type="number"
+                    [(ngModel)]="inmueble.precio_venta"
+                    disabled
+                  >
                   </ion-input>
                 </ion-item>
               </ion-col>
 
-              <ion-col size="2">
+              <ion-col size="2"> </ion-col>
+              <ion-col>
+                <ion-button (click)="quitar()"> Quitar </ion-button>
               </ion-col>
-             <ion-col>
-              <ion-button (click)="quitar()">
-                Quitar
-              </ion-button>
-            </ion-col>
             </ion-row>
           </ion-grid>
-
         </ion-card-content>
       </ion-card>
     </ion-card-content>
   </ion-card>
 </ion-content>
-

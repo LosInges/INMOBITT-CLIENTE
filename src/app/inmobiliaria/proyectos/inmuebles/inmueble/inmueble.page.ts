@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+
+import { Agente } from 'src/app/interfaces/agente';
+import { AgenteService } from 'src/app/services/agente.service';
+import { Imagen } from 'src/app/interfaces/imagen';
 import { Inmueble } from 'src/app/interfaces/inmueble';
 import { InmuebleService } from 'src/app/services/inmueble.service';
-import { Agente } from 'src/app/interfaces/agente';
+import { MapsComponent } from 'src/app/maps/maps.component';
+import { Notario } from 'src/app/interfaces/notario';
+import { NotarioService } from 'src/app/services/notario.service';
 import { SessionService } from 'src/app/services/session.service';
 import { environment } from 'src/environments/environment';
-import { Notario } from 'src/app/interfaces/notario';
-import { AgenteService } from 'src/app/services/agente.service';
-import { NotarioService } from 'src/app/services/notario.service';
-import { AlertController, ModalController } from '@ionic/angular';
-import { MapsComponent } from 'src/app/maps/maps.component';
 
 @Component({
   selector: 'app-inmueble',
@@ -17,7 +19,7 @@ import { MapsComponent } from 'src/app/maps/maps.component';
   styleUrls: ['./inmueble.page.scss'],
 })
 export class InmueblePage implements OnInit {
-  
+  imagenes: Imagen[] = [];
   inmueble: Inmueble={
     inmobiliaria: '',
     proyecto: '',
@@ -59,6 +61,10 @@ export class InmueblePage implements OnInit {
     nombre: '',
     rfc: ''
   }
+    slideOpts = {
+    initialSlide: 1,
+    speed: 400,
+  };
   api = environment.api
   constructor(
     private sessionService: SessionService,
@@ -73,26 +79,28 @@ export class InmueblePage implements OnInit {
 
   ngOnInit() {
     this.sessionService.get('correo').then(correo =>{
-      
-      
-      this.activatedRoute.params.subscribe((params) => { 
+      this.activatedRoute.params.subscribe((params) => {
         if (params.titulo) {
           this.inmuebleService
             .getInmueble(params.inmobiliaria, params.proyecto, params.titulo)
             .subscribe((inmueble) => {
               this.inmueble = inmueble;
-              this.inmueble.cliente=correo; 
+              this.inmueble.cliente=correo;
               this.agenteService.getAgente(inmueble.inmobiliaria, inmueble.agente).subscribe(agente =>{
                 this.agente = agente
               });
               this.notarioService.getNotario(inmueble.inmobiliaria, inmueble.notario).subscribe(notario =>{
                 this.notario = notario
               })
+              this.inmuebleService.getFotos(inmueble.inmobiliaria, inmueble.proyecto, inmueble.titulo).subscribe((imagenes)=>{
+                this.imagenes = imagenes;
+                console.log(imagenes)
+              })
             });
         }
       });
     });
-    
+
   }
 
   async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
@@ -122,7 +130,7 @@ export class InmueblePage implements OnInit {
           ''
         );
         console.log(this.inmueble,val);
-        
+
       }
     })
   }
