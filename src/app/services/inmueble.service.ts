@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
+import { Imagen } from './../interfaces/imagen';
 import { Injectable } from '@angular/core';
+import { Inmobiliaria } from 'src/app/interfaces/inmobiliaria';
 import { Inmueble } from '../interfaces/inmueble';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,6 +15,11 @@ export class InmuebleService {
   getInmueble(inmobiliaria: string, proyecto: string, titulo: string): Observable<Inmueble>{
     return this.httpClient.get<Inmueble>(
       `${environment.api}/inmueble/${inmobiliaria}/${proyecto}/${titulo}`
+    )
+  }
+  getFotos(inmobiliaria: string, proyecto: string, titulo: string):Observable<Imagen[]>{
+    return this.httpClient.get<Imagen[]>(
+      `${environment.api}/imagenes/inmueble/${inmobiliaria}/${proyecto}/${titulo}`
     )
   }
 
@@ -55,10 +62,6 @@ export class InmuebleService {
     return this.httpClient.get<Inmueble[]>(
       `${environment.api}/inmuebles/cliente/${cliente}`
     )
-  }
-
-  postInmueble(inmueble: Inmueble): Observable<any> {
-    return this.httpClient.post<any>(`${environment.api}/inmueble`, inmueble);
   }
 
   postInmuebleCliente(inmueble: Inmueble): Observable<any> {

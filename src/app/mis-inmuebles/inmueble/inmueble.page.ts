@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Agente } from 'src/app/interfaces/agente';
 import { AgenteService } from 'src/app/services/agente.service';
+import { Imagen } from 'src/app/interfaces/imagen';
 import { Inmueble } from 'src/app/interfaces/inmueble';
 import { InmuebleService } from 'src/app/services/inmueble.service';
 import { MapsComponent } from 'src/app/maps/maps.component';
@@ -19,6 +20,7 @@ import { environment } from 'src/environments/environment';
 })
 export class InmueblePage implements OnInit {
   api = environment.api;
+  imagenes: Imagen[] = [];
   inmueble: Inmueble = {
     inmobiliaria: '',
     proyecto: '',
@@ -60,6 +62,10 @@ export class InmueblePage implements OnInit {
     nombre: '',
     rfc: '',
   };
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400,
+  };
   constructor(
     private sessionService: SessionService,
     private inmuebleService: InmuebleService,
@@ -90,6 +96,10 @@ export class InmueblePage implements OnInit {
                 .subscribe((notario) => {
                   this.notario = notario;
                 });
+                this.inmuebleService.getFotos(inmueble.inmobiliaria, inmueble.proyecto, inmueble.titulo).subscribe((imagenes)=>{
+                  this.imagenes = imagenes;
+                  console.log(imagenes)
+                })
             });
         }
       });
