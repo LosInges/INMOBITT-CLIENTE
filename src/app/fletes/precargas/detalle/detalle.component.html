@@ -74,7 +74,7 @@
               <ion-input type="number" [(ngModel)]="precarga.cajas_grandes" ></ion-input>
             </ion-item>
           </ion-col>
-         
+
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> MUEBLES </ion-label>
@@ -92,7 +92,7 @@
               </ion-select>
             </ion-item>
           </ion-col>
-          
+
         </ion-row>
         <ion-list>
           <ng-container *ngIf="precarga.muebles">
@@ -131,18 +131,18 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label>Fecha y Hora</ion-label>
-              <ion-datetime [(ngModel)]="fecha" [yearValues]="precarga.fecha.split('-')[0]">
+              <ion-datetime [(ngModel)]="fecha" [yearValues]="precarga.fecha.split('-')[0]" [min]="minimo">
                 <span slot="time-label">Hora</span>
               </ion-datetime>
             </ion-item>
           </ion-col>
         </ion-row>
 
-        
+
           <ion-button class="ion-margin-top" type="submit" color="light" (click)="cerrar()" >
             CERRAR
           </ion-button>
-    
+
           <ion-button
             class="ion-float-right ion-margin-top"
             fill="solid"

@@ -123,6 +123,7 @@ export class InmueblePage implements OnInit {
           'Se registró correctamente',
           ''
         );
+        this.router.navigate(['/inmobiliaria'],{relativeTo:this.activatedRoute});
       }else{
         this.mostrarAlerta(
           'Error',
