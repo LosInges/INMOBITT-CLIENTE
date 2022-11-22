@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { NavigationEnd, Router } from '@angular/router';
+
 import { LoginComponent } from './login/login.component';
+import { ModalController } from '@ionic/angular';
+import { SessionService } from './../services/session.service';
 import { SignupComponent } from './signup/signup.component';
 
 @Component({
@@ -14,15 +17,16 @@ export class LoginPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
+    private router: Router,
+    private sessionService: SessionService
   ) {}
 
   ngOnInit() {}
 
-
   async abrirRegistro() {
     const modal = await this.modalController.create({
       component: SignupComponent,
-      cssClass: 'modalRegistrar'
+      cssClass: 'modalRegistrar',
     });
     return await modal.present();
   }
@@ -30,7 +34,7 @@ export class LoginPage implements OnInit {
   async abrirIngresar() {
     const modal = await this.modalController.create({
       component: LoginComponent,
-      cssClass: 'modalIngresar'
+      cssClass: 'modalIngresar',
     });
     return await modal.present();
   }

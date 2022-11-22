@@ -70,6 +70,7 @@
               <ion-label position="floating"> CAJAS CHICAS </ion-label>
               <ion-input
                 type="number"
+                min="0"
                 [(ngModel)]="precarga.cajas_chicas"
               ></ion-input>
             </ion-item>
@@ -79,6 +80,7 @@
               <ion-label position="floating"> CAJAS MEDIANAS </ion-label>
               <ion-input
                 type="number"
+                min="0"
                 [(ngModel)]="precarga.cajas_medianas"
               ></ion-input>
             </ion-item>
@@ -88,6 +90,7 @@
               <ion-label position="floating"> CAJAS GRANDES </ion-label>
               <ion-input
                 type="number"
+                min="0"
                 [(ngModel)]="precarga.cajas_grandes"
               ></ion-input>
             </ion-item>
@@ -116,6 +119,7 @@
               <ion-label position="fixed"> {{ mueble.nombre }} </ion-label>
               <ion-input
                 type="number"
+                min="1"
                 [(ngModel)]="mueble.cantidad"
               ></ion-input>
             </ion-item>
@@ -148,7 +152,7 @@
           <ion-col class="ion-margin-top ion-margin-bottom" size="7">
             <ion-item>
               <ion-label>Fecha y Hora</ion-label>
-              <ion-datetime [(ngModel)]="fecha">
+              <ion-datetime [(ngModel)]="fecha" [min]="minimo">
                 <span slot="time-label">Hora</span>
               </ion-datetime>
             </ion-item>

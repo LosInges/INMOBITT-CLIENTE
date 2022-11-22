@@ -19,6 +19,7 @@ export class PrecargaComponent implements OnInit {
   @Input() correo: string;
   @Input() id: string;
   muebles = this.muebleService.getMuebles();
+  minimo = new Date().toISOString();
 
   precarga: Precarga = {
     id: '',
@@ -69,31 +70,30 @@ export class PrecargaComponent implements OnInit {
   }
 
   registrarPrecarga() {
-    if (
-      this.precarga.telefono.trim().length <= 0 ||
-      this.precarga.origen == null ||
-      this.precarga.destino == null ||
-      this.precarga.muebles.toString() == 'Muebles'
-    ) {
-      this.mostrarAlerta(
-        'Error',
-        'Campos vacios',
-        'No deje espacios en blanco.'
-      );
-    } else {
+    if (this.validaciones()) {
       this.precarga.fecha = this.fecha.split('T')[0];
       this.precarga.hora = this.fecha
         .split('T')[1]
         .split('.')[0]
         .substring(0, 5);
       this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
-        if (res.results) this.modalController.dismiss(this.precarga);
-        else console.log(res);
+        if (res.results){ this.modalController.dismiss(this.precarga);
+          this.alertController
+          .create({
+            header: 'ÉXITOSAME',
+            message: 'Se REGISTRÓ la Precarga',
+            buttons: ['CERRAR'],
+          })
+          .then((alert) => {
+            alert.present();
+          });
+          this.cerrar()
+        }else console.log(res);
       });
     }
   }
 
-  async guardarOrigen(){
+  async guardarOrigen() {
     const modal = await this.modalController.create({
       component: MapsComponent,
       cssClass: 'modalGeneral',
@@ -105,7 +105,7 @@ export class PrecargaComponent implements OnInit {
     });
     return modal.present();
   }
-  async guardarDestino(){
+  async guardarDestino() {
     const modal = await this.modalController.create({
       component: MapsComponent,
       cssClass: 'modalGeneral',
@@ -116,6 +116,74 @@ export class PrecargaComponent implements OnInit {
       }
     });
     return modal.present();
+  }
+
+  validaciones(): Boolean {
+    if (this.precarga.telefono.trim().length <= 0) {
+      this.mostrarAlerta(
+        'Error',
+        'Campo de telefono vacio',
+        'No deje espacios en blanco.'
+      );
+      return false;
+    }
+    if (this.precarga.origen == null) {
+      this.mostrarAlerta(
+        'Error',
+        'Campo de origen',
+        'No deje espacios en blanco.'
+      );
+      return false;
+    }
+    if (this.precarga.destino == null) {
+      this.mostrarAlerta(
+        'Error',
+        'Campo de destino',
+        'No deje espacios en blanco.'
+      );
+      return false;
+    }
+    if (this.precarga.cajas_chicas < 0) {
+      this.mostrarAlerta('Error', 'Campo negativo', 'No coloque números neg.');
+      return false;
+    }
+    if (this.precarga.cajas_grandes < 0) {
+      this.mostrarAlerta('Error', 'Campo negativo', 'No coloque números neg.');
+      return false;
+    }
+    if (this.precarga.cajas_medianas < 0) {
+      this.mostrarAlerta('Error', 'Campo negativo', 'No coloque números neg.');
+      return false;
+    }
+    if (this.precarga.muebles.length > 0) {
+      let valido = true;
+      this.precarga.muebles.forEach((mueble) => {
+        if (mueble.cantidad <= 0) {
+          valido = false;
+          return;
+        }
+      });
+      if (!valido) {
+        this.mostrarAlerta(
+          'Error',
+          'muebles',
+          'Todos los muebles deben ser mayores a 0'
+        );
+        console.log('inmuebles invalidos');
+        return false;
+      }
+    }
+    if (this.precarga.empresa.length <= 0) {
+      this.mostrarAlerta(
+        'Error',
+        'Escoja una empresa',
+        'Recuerde que se tienen que rellenar todos los campos'
+      );
+      console.log('inmuebles invalidos');
+      return false;
+    }
+
+    return true;
   }
 
   cerrar() {
