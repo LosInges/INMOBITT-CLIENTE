@@ -23,6 +23,8 @@
               <ion-input [(ngModel)]="precarga.id" disabled> </ion-input>
             </ion-item>
           </ion-col>
+        </ion-row>
+        <ion-row>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> EMPRESA </ion-label>
@@ -50,7 +52,7 @@
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> TELEFONO </ion-label>
-              <ion-input [(ngModel)]="precarga.telefono"> </ion-input>
+              <ion-input type="tel" [(ngModel)]="precarga.telefono"> </ion-input>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -95,6 +97,10 @@
               ></ion-input>
             </ion-item>
           </ion-col>
+
+        </ion-row>
+
+        <ion-row>
           <ion-col class="ion-margin-top ion-margin-bottom">
             <ion-item>
               <ion-label position="floating"> MUEBLES </ion-label>
@@ -137,19 +143,15 @@
       <ion-grid>
         <ion-row>
           <ion-col class="ion-margin-top ion-margin-bottom">
-            <ion-item>
-              <ion-button (click)="guardarOrigen()">ORIGEN</ion-button>
-            </ion-item>
+              <ion-button expand="full" (click)="guardarOrigen()">ORIGEN</ion-button>
           </ion-col>
           <ion-col class="ion-margin-top ion-margin-bottom">
-            <ion-item>
-              <ion-button (click)="guardarDestino()">DESTINO</ion-button>
-            </ion-item>
+              <ion-button expand="full" (click)="guardarDestino()">DESTINO</ion-button>
           </ion-col>
         </ion-row>
 
         <ion-row>
-          <ion-col class="ion-margin-top ion-margin-bottom" size="7">
+          <ion-col class="ion-margin-top ion-margin-bottom" >
             <ion-item>
               <ion-label>Fecha y Hora</ion-label>
               <ion-datetime [(ngModel)]="fecha" [min]="minimo">
