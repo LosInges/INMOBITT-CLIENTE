@@ -37,7 +37,7 @@
                 <ion-item>
                   <ion-img
                     *ngIf="inmueble.foto"
-                    src="{{ api }}/{{ inmueble.foto }}"
+                    src="{{ api }}/img/{{ inmueble.foto.split('/').pop() }}"
                   ></ion-img>
                 </ion-item>
               </ion-col>
@@ -54,9 +54,8 @@
 
               <ion-col size-xs="12" size-xl="4">
                 <ion-item>
+                  <ion-img src="{{api}}/{{agente.foto}}"> </ion-img>
                   <ion-label position="floating"> AGENTE </ion-label>
-
-                  <ion-img> {{api}}/{{inmueble.foto}} </ion-img>
                   <ion-input
                     value="{{agente.nombre}} {{agente.apellido}}"
                     disabled
@@ -67,9 +66,8 @@
 
               <ion-col size-xs="12" size-xl="4">
                 <ion-item>
+                  <ion-img src="{{api}}/img/{{notario.foto.split('/').pop()}}"> </ion-img>
                   <ion-label position="floating"> NOTARIO </ion-label>
-
-                  <ion-img> {{api}}/{{notario.foto}} </ion-img>
                   <ion-input
                     value="{{notario.nombre}} {{notario.apellido}}"
                     disabled
@@ -106,7 +104,8 @@
                   <ion-input
                     type="number"
                     [(ngModel)]="inmueble.pisos"
-                    disabled>
+                    disabled
+                  >
                   </ion-input>
                 </ion-item>
               </ion-col>
@@ -117,19 +116,21 @@
                   <ion-input
                     type="number"
                     [(ngModel)]="inmueble.cuartos"
-                    disabled>
+                    disabled
+                  >
                   </ion-input>
                 </ion-item>
               </ion-col>
 
               <ion-col size-xs="12" size-xl="3">
                 <ion-button expand="full" (click)="verDireccion()"
-                >VER DIRECCION</ion-button>
+                  >VER DIRECCION</ion-button
+                >
               </ion-col>
             </ion-row>
 
             <ion-row>
-              <ion-col  size-xs="12" size-xl="5">
+              <ion-col size-xs="12" size-xl="5">
                 <ion-item>
                   <ion-label position="floating"> METROS CUADRADOS </ion-label>
                   <ion-input
@@ -180,15 +181,16 @@
               </ion-col>
 
               <ion-col size-xs="12" size-Xl="3">
-              <ion-button expand="full" (click)="solicitar()"  class="float-right">
-                Iniciar Negociacion
-              </ion-button>
-            </ion-col>
+                <ion-button
+                  expand="full"
+                  (click)="solicitar()"
+                  color="success"
+                  class="float-right"
+                >
+                  Iniciar Negociacion
+                </ion-button>
+              </ion-col>
             </ion-row>
-
-
-
-
           </ion-grid>
         </ion-card-content>
       </ion-card>
