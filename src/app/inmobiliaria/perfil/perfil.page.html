@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/inmobiliaria"></ion-back-button>
     </ion-buttons>
     <ion-title color="secondary">INMOBILIARIA</ion-title>
-    </ion-toolbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -20,17 +20,22 @@
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
                   <ion-label position="floating"> CORREO </ion-label>
-                  <ion-input [(ngModel)]="inmobiliaria.correo" disabled> </ion-input>
+                  <ion-input [(ngModel)]="inmobiliaria.correo" disabled>
+                  </ion-input>
                 </ion-item>
               </ion-col>
 
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
                   <ion-label position="floating"> CONTRASEÑA </ion-label>
-                  <ion-input [(ngModel)]="inmobiliaria.password" type="password" disabled> </ion-input>
+                  <ion-input
+                    [(ngModel)]="inmobiliaria.password"
+                    type="password"
+                    disabled
+                  >
+                  </ion-input>
                 </ion-item>
               </ion-col>
- 
             </ion-row>
           </ion-grid>
         </ion-card-content>
@@ -45,29 +50,39 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label position="floating" > NOMBRE </ion-label>
-                  <ion-input [(ngModel)]="inmobiliaria.nombre" disabled> </ion-input>
-                </ion-item>
-              </ion-col>
-
-              <ion-col>
-                <ion-item>
-                  <ion-button (click)="verDireccion()">VER DIRECCION</ion-button>
+                  <ion-label position="floating"> NOMBRE </ion-label>
+                  <ion-input [(ngModel)]="inmobiliaria.nombre" disabled>
+                  </ion-input>
                 </ion-item>
               </ion-col>
 
               <ion-col class="ion-margin-top ion-margin-bottom">
                 <ion-item>
-                  <ion-select placeholder="ESTADO" [(ngModel)]="inmobiliaria.estado" disabled>
-                    <ion-select-option *ngFor="let estado of estados" [value]="estado.nombre">{{estado.nombre}}
+                  <ion-select
+                    placeholder="ESTADO"
+                    [(ngModel)]="inmobiliaria.estado"
+                    disabled
+                  >
+                    <ion-select-option
+                      *ngFor="let estado of estados"
+                      [value]="estado.nombre"
+                      >{{estado.nombre}}
                     </ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-col>
 
               <ion-item class="ion-margin-top ion-margin-bottom">
-                <ion-select placeholder="Sedes" [(ngModel)]="inmobiliaria.sedes" [multiple]="true" disabled>
-                  <ion-select-option *ngFor="let sede of estados" [value]="sede.nombre">{{sede.nombre}}
+                <ion-select
+                  placeholder="Sedes"
+                  [(ngModel)]="inmobiliaria.sedes"
+                  [multiple]="true"
+                  disabled
+                >
+                  <ion-select-option
+                    *ngFor="let sede of estados"
+                    [value]="sede.nombre"
+                    >{{sede.nombre}}
                   </ion-select-option>
                 </ion-select>
               </ion-item>
@@ -76,22 +91,30 @@
 
           <ion-grid>
             <ion-row>
-              
               <ion-col>
                 <ion-item>
                   <ion-row>
-                    <img *ngIf="inmobiliaria.foto" src="{{ api }}/{{ inmobiliaria.foto }}" /> 
+                    <img
+                      *ngIf="inmobiliaria.foto"
+                      src="{{ api }}/{{ inmobiliaria.foto }}"
+                    />
                   </ion-row>
                 </ion-item>
               </ion-col>
             </ion-row>
-          </ion-grid>  
-        <ion-button href="inmobiliaria" class="ion-float-left ion-margin-top ion-margin-bottom" fill="solid">
-          Cancelar
-        </ion-button>
+          </ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-col size-xs="12" size-xl="9"></ion-col>
+              <ion-col size-xs="12" size-xl="9">
+                <ion-button expand="full" (click)="verDireccion()"
+                  >VER DIRECCION</ion-button
+                >
+              </ion-col>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
     </ion-card-content>
   </ion-card>
-  </ion-card-content>
-  </ion-card>
-  
 </ion-content>
