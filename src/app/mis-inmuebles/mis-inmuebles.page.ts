@@ -11,34 +11,40 @@ import { SessionService } from '../services/session.service';
   styleUrls: ['./mis-inmuebles.page.scss'],
 })
 export class MisInmueblesPage implements OnInit {
-
-  inmuebles: Inmueble[] = []
-  api = environment.api
+  inmuebles: Inmueble[] = [];
+  api = environment.api;
   constructor(
     private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
     private inmuebleService: InmuebleService,
     private router: Router
-
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.sessionService.get('correo').then((correo) => { 
+    this.sessionService.get('correo').then((correo) => {
       if (correo) {
         this.inmuebleService
           .getInmueblesCliente(correo)
           .subscribe((inmuebles) => {
-            this.inmuebles = inmuebles; 
-            console.log(inmuebles)
+            this.inmuebles = inmuebles;
+            console.log(inmuebles);
           });
       }
     });
   }
 
-  navegar(inmueble: Inmueble){
-    this.router.navigate(['./',inmueble.inmobiliaria,inmueble.proyecto, 'inmueble',inmueble.titulo],{
-      relativeTo: this.activatedRoute
-    })
+  navegar(inmueble: Inmueble) {
+    this.router.navigate(
+      [
+        './',
+        inmueble.inmobiliaria,
+        inmueble.proyecto,
+        'inmueble',
+        inmueble.titulo,
+      ],
+      {
+        relativeTo: this.activatedRoute,
+      }
+    );
   }
-
 }

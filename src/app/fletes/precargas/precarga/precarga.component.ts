@@ -14,10 +14,10 @@ import { PrecargaService } from 'src/app/services/precarga.service';
   styleUrls: ['./precarga.component.scss'],
 })
 export class PrecargaComponent implements OnInit {
-  fecha: string = new Date().toISOString();
   @Input() empresas: Empresa[];
   @Input() correo: string;
   @Input() id: string;
+  fecha: string = new Date().toISOString();
   muebles = this.muebleService.getMuebles();
   minimo = new Date().toISOString();
 
@@ -77,18 +77,21 @@ export class PrecargaComponent implements OnInit {
         .split('.')[0]
         .substring(0, 5);
       this.precargaService.postPrecarga(this.precarga).subscribe((res) => {
-        if (res.results){ this.modalController.dismiss(this.precarga);
+        if (res.results) {
+          this.modalController.dismiss(this.precarga);
           this.alertController
-          .create({
-            header: 'ÉXITOSAME',
-            message: 'Se REGISTRÓ la Precarga',
-            buttons: ['CERRAR'],
-          })
-          .then((alert) => {
-            alert.present();
-          });
-          this.cerrar()
-        }else console.log(res);
+            .create({
+              header: 'ÉXITOSAME',
+              message: 'Se REGISTRÓ la Precarga',
+              buttons: ['CERRAR'],
+            })
+            .then((alert) => {
+              alert.present();
+            });
+          this.cerrar();
+        } else {
+          console.log(res);
+        }
       });
     }
   }
@@ -97,6 +100,7 @@ export class PrecargaComponent implements OnInit {
     const modal = await this.modalController.create({
       component: MapsComponent,
       cssClass: 'modalGeneral',
+      componentProps: { position: this.precarga.origen },
     });
     modal.onDidDismiss().then((res) => {
       if (res.data) {
@@ -109,6 +113,7 @@ export class PrecargaComponent implements OnInit {
     const modal = await this.modalController.create({
       component: MapsComponent,
       cssClass: 'modalGeneral',
+      componentProps: { position: this.precarga.destino },
     });
     modal.onDidDismiss().then((res) => {
       if (res.data) {
@@ -118,7 +123,7 @@ export class PrecargaComponent implements OnInit {
     return modal.present();
   }
 
-  validaciones(): Boolean {
+  validaciones(): boolean {
     if (this.precarga.telefono.trim().length <= 0) {
       this.mostrarAlerta(
         'Error',

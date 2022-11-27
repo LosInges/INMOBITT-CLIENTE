@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/inmobiliaria"></ion-back-button>
-    </ion-buttons>
     <ion-title color="secondary">MIS INMUEBLES</ion-title>
 
   </ion-toolbar>
@@ -23,7 +20,7 @@
             >{{inmueble.precio_renta}}
           </ion-label>
         </ion-item>
-        <ion-item-options side="start"  (ionSwipe)="navegar(inmueble)">
+        <ion-item-options side="start"  (ionSwipe)="navegar(inmueble); itemSliding.close()">
           <ion-item-option expandable color="success" >
             <ion-label>
               <ion-icon name="eye"></ion-icon>

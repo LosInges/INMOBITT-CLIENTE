@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
@@ -20,7 +21,7 @@ import { environment } from 'src/environments/environment';
 })
 export class InmueblePage implements OnInit {
   imagenes: Imagen[] = [];
-  inmueble: Inmueble={
+  inmueble: Inmueble = {
     inmobiliaria: '',
     proyecto: '',
     titulo: '',
@@ -28,7 +29,7 @@ export class InmueblePage implements OnInit {
     foto: '',
     direccion: {
       lat: 0,
-      lng: 0
+      lng: 0,
     },
     precio_renta: 0,
     precio_venta: 0,
@@ -43,7 +44,7 @@ export class InmueblePage implements OnInit {
     borrado: true,
     cliente: '',
   };
-  agente: Agente={
+  agente: Agente = {
     apellido: '',
     correo: '',
     foto: '',
@@ -51,21 +52,21 @@ export class InmueblePage implements OnInit {
     nombre: '',
     password: '',
     rfc: '',
-    telefono: ''
+    telefono: '',
   };
-  notario: Notario ={
+  notario: Notario = {
     apellido: '',
     correo: '',
     foto: '',
     inmobiliaria: '',
     nombre: '',
-    rfc: ''
-  }
-    slideOpts = {
-    initialSlide: 1,
+    rfc: '',
+  };
+  slideOpts = {
+    initialSlide: 0,
     speed: 400,
   };
-  api = environment.api
+  api = environment.api;
   constructor(
     private sessionService: SessionService,
     private activatedRoute: ActivatedRoute,
@@ -75,32 +76,41 @@ export class InmueblePage implements OnInit {
     private notarioService: NotarioService,
     private modalController: ModalController,
     private alertCtrl: AlertController
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.sessionService.get('correo').then(correo =>{
+    this.sessionService.get('correo').then((correo) => {
       this.activatedRoute.params.subscribe((params) => {
         if (params.titulo) {
           this.inmuebleService
             .getInmueble(params.inmobiliaria, params.proyecto, params.titulo)
             .subscribe((inmueble) => {
               this.inmueble = inmueble;
-              this.inmueble.cliente=correo;
-              this.agenteService.getAgente(inmueble.inmobiliaria, inmueble.agente).subscribe(agente =>{
-                this.agente = agente
-              });
-              this.notarioService.getNotario(inmueble.inmobiliaria, inmueble.notario).subscribe(notario =>{
-                this.notario = notario
-              })
-              this.inmuebleService.getFotos(inmueble.inmobiliaria, inmueble.proyecto, inmueble.titulo).subscribe((imagenes)=>{
-                this.imagenes = imagenes;
-                console.log(imagenes)
-              })
+              this.inmueble.cliente = correo;
+              this.agenteService
+                .getAgente(inmueble.inmobiliaria, inmueble.agente)
+                .subscribe((agente) => {
+                  this.agente = agente;
+                });
+              this.notarioService
+                .getNotario(inmueble.inmobiliaria, inmueble.notario)
+                .subscribe((notario) => {
+                  this.notario = notario;
+                });
+              this.inmuebleService
+                .getFotos(
+                  inmueble.inmobiliaria,
+                  inmueble.proyecto,
+                  inmueble.titulo
+                )
+                .subscribe((imagenes) => {
+                  this.imagenes = imagenes;
+                  console.log(imagenes);
+                });
             });
         }
       });
     });
-
   }
 
   async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
@@ -115,25 +125,18 @@ export class InmueblePage implements OnInit {
     console.log(result);
   }
 
-  solicitar(){
-    this.inmuebleService.postInmuebleCliente(this.inmueble).subscribe(val =>{
-      if(val.results){
-        this.mostrarAlerta(
-          'Exito',
-          'Se registró correctamente',
-          ''
-        );
-        this.router.navigate(['/inmobiliaria'],{relativeTo:this.activatedRoute});
-      }else{
-        this.mostrarAlerta(
-          'Error',
-          'No se registró',
-          ''
-        );
-        console.log(this.inmueble,val);
-
+  solicitar() {
+    this.inmuebleService.postInmuebleCliente(this.inmueble).subscribe((val) => {
+      if (val.results) {
+        this.mostrarAlerta('Exito', 'Se registró correctamente', '');
+        this.router.navigate(['/inmobiliaria'], {
+          relativeTo: this.activatedRoute,
+        });
+      } else {
+        this.mostrarAlerta('Error', 'No se registró', '');
+        console.log(this.inmueble, val);
       }
-    })
+    });
   }
 
   async verDireccion() {
@@ -145,5 +148,4 @@ export class InmueblePage implements OnInit {
 
     modal.present();
   }
-
 }

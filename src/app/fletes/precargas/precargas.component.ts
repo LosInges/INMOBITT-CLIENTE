@@ -59,7 +59,7 @@ export class PrecargasComponent implements OnInit {
     const modal = await this.modalControler.create({
       component: DetalleComponent,
       componentProps: { precarga, fecha: fecha.toISOString() },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((val) => {
       if (val.data) {
@@ -77,7 +77,7 @@ export class PrecargasComponent implements OnInit {
         correo: this.correo,
         id: uuidv4(),
       },
-      cssClass: 'modalGeneral'
+      cssClass: 'modalGeneral',
     });
     modal.onDidDismiss().then((val) => {
       if (val.data) {
@@ -104,8 +104,7 @@ export class PrecargasComponent implements OnInit {
         this.precargas = val.results
           ? this.precargas.filter((p) => p !== precarga)
           : this.precargas;
-          console.log(val);
-          
+        console.log(val);
       });
   }
 }
