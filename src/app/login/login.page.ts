@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { ModalController } from '@ionic/angular';
@@ -17,8 +17,6 @@ export class LoginPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private router: Router,
-    private sessionService: SessionService
   ) {}
 
   ngOnInit() {}

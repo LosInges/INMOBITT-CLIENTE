@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AlertController } from '@ionic/angular';
 import { Cliente } from '../interfaces/cliente';
@@ -25,17 +25,7 @@ export class PerfilPage implements OnInit {
     private router: Router,
     private alertCtrl: AlertController,
     private alertController: AlertController
-  ) {
-    router.events.subscribe((e) => {
-      if (e instanceof NavigationEnd) {
-        this.sessionService.keys().then((k) => {
-          if (k.length <= 0) {
-            this.router.navigate(['']);
-          }
-        });
-      }
-    });
-  }
+  ) {}
 
   async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
     const alert = await this.alertCtrl.create({
@@ -51,10 +41,11 @@ export class PerfilPage implements OnInit {
 
   ngOnInit() {
     this.sessionService.get('correo')?.then((correo) => {
-      if (correo)
+      if (correo) {
         this.clienteService
           .getCliente(correo)
           .subscribe((cliente) => (this.cliente = cliente));
+      }
     });
   }
 
@@ -80,8 +71,7 @@ export class PerfilPage implements OnInit {
     }
   }
   async presentarAlert1() {
-    let alert: HTMLIonAlertElement;
-    alert = await this.alertController.create({
+    const alert = await this.alertController.create({
       header: 'Confirmar Contraseña',
       inputs: [
         {
@@ -102,7 +92,7 @@ export class PerfilPage implements OnInit {
       ],
     });
     alert.onDidDismiss().then((data) => {
-      if (this.cliente.password == data.data.values.password) {
+      if (this.cliente.password === data.data.values.password) {
         this.clienteService.postCliente(this.cliente)?.subscribe((val) => {
           console.log(val);
           window.location.reload();
@@ -123,8 +113,7 @@ export class PerfilPage implements OnInit {
   }
 
   async presentarAlert() {
-    let alert: HTMLIonAlertElement;
-    alert = await this.alertController.create({
+    const alert = await this.alertController.create({
       header: 'Confirmar Contraseña',
       inputs: [
         {
@@ -145,7 +134,7 @@ export class PerfilPage implements OnInit {
       ],
     });
     alert.onDidDismiss().then((data) => {
-      if (this.cliente.password == data.data.values.password) {
+      if (this.cliente.password === data.data.values.password) {
         this.clienteService
           .deleteCliente(this.cliente.correo)
           ?.subscribe((val) => {

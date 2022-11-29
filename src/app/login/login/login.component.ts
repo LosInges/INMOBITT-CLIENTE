@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   email = '';
   password = '';
 
-
   constructor(
     private loginService: LoginService,
     private sessionService: SessionService,
@@ -22,17 +21,17 @@ export class LoginComponent implements OnInit {
     private alertController: AlertController
   ) {}
 
-  async mostrarAlerta(titulo:string, subtitulo:string, mensaje:string) {  
-    const alert = await this.alertController.create({  
-      header: titulo,  
-      subHeader: subtitulo,  
-      message: mensaje,  
-      buttons: ['OK']  
-    });  
-    await alert.present();  
-    const result = await alert.onDidDismiss();  
-    console.log(result);  
-  } 
+  async mostrarAlerta(titulo: string, subtitulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      subHeader: subtitulo,
+      message: mensaje,
+      buttons: ['OK'],
+    });
+    await alert.present();
+    const result = await alert.onDidDismiss();
+    console.log(result);
+  }
 
   ngOnInit() {}
 
@@ -44,10 +43,13 @@ export class LoginComponent implements OnInit {
     this.loginService
       .login(this.email, this.password)
       .subscribe((respuesta) => {
-        console.log(respuesta);
-        if (respuesta.session.tipo !== 'cliente')   {
+        if (respuesta.session.tipo !== 'cliente') {
           console.log('NO es Cliente');
-          this.mostrarAlerta("Error:", "Correo inválido", "Recuerde bien su correo y contraseña")
+          this.mostrarAlerta(
+            'Error:',
+            'Credenciales invalidas',
+            'Recuerde bien su correo y contraseña'
+          );
           return;
         }
         const promesa: Promise<any>[] = [
@@ -56,13 +58,13 @@ export class LoginComponent implements OnInit {
         ];
 
         Promise.all(promesa).then(() => {
-          this.cerrar()
-          this.router.navigate(['/', 'perfil'])
+          this.cerrar();
+          this.router.navigate(['/', 'perfil']);
         });
       });
   }
- 
-  cerrar(){
+
+  cerrar() {
     this.modalController.dismiss();
   }
 }

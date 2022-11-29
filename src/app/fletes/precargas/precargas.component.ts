@@ -1,4 +1,4 @@
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Estado } from 'src/app/interfaces/estado';
 import { EstadosService } from 'src/app/services/estados.service';
@@ -28,7 +28,8 @@ export class PrecargasComponent implements OnInit {
     private estadosService: EstadosService,
     private precargaService: PrecargaService,
     private modalControler: ModalController,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -39,7 +40,6 @@ export class PrecargasComponent implements OnInit {
         .subscribe((empresas) => (this.empresas = empresas));
 
       this.precargaService.getPrecargas(correo).subscribe((precargas) => {
-        console.log(precargas);
         this.precargas = precargas;
       });
     });
@@ -87,8 +87,6 @@ export class PrecargasComponent implements OnInit {
           this.precargas.push(val.data);
         }
       }
-
-      console.log(val);
     });
     return await modal.present();
   }
@@ -101,10 +99,17 @@ export class PrecargasComponent implements OnInit {
     this.precargaService
       .deletePrecarga(this.correo, precarga.id, precarga.empresa)
       .subscribe((val) => {
-        this.precargas = val.results
-          ? this.precargas.filter((p) => p !== precarga)
-          : this.precargas;
-        console.log(val);
+        if (val.results) {
+          this.precargas = this.precargas.filter((p) => precarga !== p);
+        } else {
+          this.alertController
+            .create({
+              header: 'Error',
+              message: 'No se pudo eliminar la precarga',
+              buttons: ['Aceptar'],
+            })
+            .then((alert) => alert.present());
+        }
       });
   }
 }

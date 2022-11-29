@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Item } from 'src/app/interfaces/item';
@@ -14,20 +15,21 @@ import { v4 as uuidv4 } from 'uuid';
 export class PaqueteComponent implements OnInit {
   @Input() id: string;
   @Input() total: number;
-  api = environment.api
+  api = environment.api;
   item: Item = {
-    id: "",
-    id_item: "",
-    foto: "Holi",
-    item: "",
+    id: '',
+    id_item: '',
+    foto: '',
+    item: '',
     total: 0,
     alto_item: 0,
     ancho_item: 0,
-  }
+    profundidad: 0,
+  };
   constructor(
     private modalController: ModalController,
     private itemService: ItemsService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.item.id = this.id;
@@ -35,7 +37,7 @@ export class PaqueteComponent implements OnInit {
     this.item.total = this.total;
   }
 
-  cerrar() { this.modalController.dismiss() }
-
-
+  cerrar() {
+    this.modalController.dismiss();
+  }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Route, Router } from '@angular/router';
-import { Navigation } from 'selenium-webdriver';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { Direccion } from '../interfaces/direccion';
 import { Flete } from '../interfaces/flete';
+import { MapsComponent } from '../maps/maps.component';
 import { FletesService } from '../services/fletes.service';
 import { SessionService } from '../services/session.service';
 
@@ -15,23 +17,14 @@ export class FletesPage implements OnInit {
   constructor(
     private fletesService: FletesService,
     private router: Router,
-    private sessionService: SessionService
-  ) {
-    router.events.subscribe(e=>{
-      if(e instanceof NavigationEnd){
-        this.sessionService.keys().then(k=>{
-          if(k.length <= 0){
-            this.router.navigate([''])
-          }
-        })
-      }
-    })
-   }
+    private sessionService: SessionService,
+    private modalController: ModalController
+  ) {}
 
   ngOnInit() {
     this.sessionService.get('correo')?.then((correo) => {
       this.fletesService.getFletesC(correo).subscribe((fletes) => {
-          this.fletes = fletes;
+        this.fletes = fletes;
       });
     });
   }
@@ -39,12 +32,21 @@ export class FletesPage implements OnInit {
   eliminar(flete: Flete) {
     this.fletesService.deleteFlete(flete).subscribe((val) => {
       this.fletes = val.results
-        ? this.fletes.filter((f) => f != flete)
+        ? this.fletes.filter((f) => f !== flete)
         : this.fletes;
     });
   }
 
   navegar(flete: Flete) {
     this.router.navigate(['/', 'fletes', flete.id, 'paquetes']);
+  }
+
+  async verPosicion(position: Direccion) {
+    const modal = await this.modalController.create({
+      component: MapsComponent,
+      componentProps: { position },
+      cssClass: 'modalGeneral',
+    });
+    return modal.present();
   }
 }

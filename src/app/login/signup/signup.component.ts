@@ -25,7 +25,6 @@ export class SignupComponent implements OnInit {
     private modalController: ModalController,
     private clienteService: ClienteService,
     private alertCtrl: AlertController,
-    private router: Router,
     private loginService: LoginService
   ) {}
 
@@ -36,16 +35,13 @@ export class SignupComponent implements OnInit {
       message: mensaje,
       buttons: ['OK'],
     });
-    await alert.present();
-    const result = await alert.onDidDismiss();
-    console.log(result);
-    this.router.navigate(['/', 'login']);
+    return alert.present();
   }
 
   ngOnInit() {}
 
   onSubmit() {
-    if (this.validaciones() == true) {
+    if (this.validaciones()) {
       //validar
       this.loginService
         .solicitarRegistro(this.cliente.correo)
@@ -56,8 +52,11 @@ export class SignupComponent implements OnInit {
                 this.mostrarAlerta('Completado', 'BIENVENIDO', '');
                 this.modalController.dismiss();
               } else {
-                console.log(res);
-                this.mostrarAlerta('ERROR', 'error servidor', 'intente de nuevo');
+                this.mostrarAlerta(
+                  'ERROR',
+                  'error servidor',
+                  'intente de nuevo'
+                );
                 this.cerrar();
               }
             });
@@ -72,7 +71,7 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  validaciones(): Boolean {
+  validaciones(): boolean {
     if (
       this.cliente.apellido.trim().length <= 0 ||
       this.cliente.nombre.trim().length <= 0 ||
@@ -96,7 +95,7 @@ export class SignupComponent implements OnInit {
       this.mostrarAlerta('Error:', 'Revise del campo apellido', 'por favor');
       return false;
     }
-    if (!this.cliente.nombre.match(/^[_a-zA-Z]+$/)) {
+    if (!this.cliente.nombre.match(/^[_a-zA-Z ]+$/)) {
       this.mostrarAlerta('Error:', 'Revise del campo nombre', 'por favor');
       return false;
     }
@@ -108,7 +107,6 @@ export class SignupComponent implements OnInit {
       );
       return false;
     }
-    console.log('TODO OK EN VALIDACIONES');
     return true;
   }
 

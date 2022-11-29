@@ -53,8 +53,10 @@
               </ion-col>
 
               <ion-col size-xs="12" size-xl="4">
-                <ion-img src="{{api}}/{{agente.foto}}" style="width: 256px">
-                </ion-img>
+                <ion-item>
+                  <ion-img src="{{api}}/img/{{agente.foto.split('/').pop()}}">
+                  </ion-img>
+                </ion-item>
                 <ion-item-group>
                   <ion-item>
                     <ion-label position="floating"> AGENTE </ion-label>
@@ -72,8 +74,10 @@
                 </ion-item-group>
               </ion-col>
               <ion-col size-xs="12" size-xl="4">
-                <ion-img src="{{api}}/{{notario.foto}}" style="width: 256px">
-                </ion-img>
+                <ion-item>
+                  <ion-img src="{{api}}/img/{{notario.foto.split('/').pop()}}">
+                  </ion-img>
+                </ion-item>
                 <ion-item-group>
                   <ion-item>
                     <ion-label position="floating"> NOTARIO </ion-label>
